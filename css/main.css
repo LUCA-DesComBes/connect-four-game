@@ -29,9 +29,16 @@ nav {
     justify-content: space-between;
     margin-top: 53px;
     width: 40%;
+    margin-bottom: 13.688rem;
 }
 .f-s16 {
     font-size: 16px;
+}
+.f-s20 {
+    font-size: 20px;
+}
+.f-s56 {
+    font-size: 56px;
 }
 .f-w700 {
     font-weight: 700;
@@ -47,4 +54,33 @@ nav {
 .btn-nav:hover {
     cursor: pointer;
     background-color: var(--tertiaryColor);
+}
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+.art-main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+}
+.div-player {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--white);
+    padding: 46px 27px 17px 28px;
+    border: 3px var(--black) solid;
+    border-radius: 20px;
+    box-shadow: 0px 10px 0px 0px rgba(0, 0, 0, 1);
+}
+.img-player {
+    position: absolute;
+    bottom: 75%;
 }
