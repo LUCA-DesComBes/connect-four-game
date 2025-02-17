@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
 :root {
     --black: #000;
     --primaryColor: #5c2dd5;
@@ -5,4 +6,45 @@
     --tertiaryColor: #fd6687;
     --quaternaryColor: #ffce67;
     --white: #fff;
+}
+* {
+    font-family: "Space Grotesk", serif;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--secondaryColor);
+}
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 53px;
+    width: 40%;
+}
+.f-s16 {
+    font-size: 16px;
+}
+.f-w700 {
+    font-weight: 700;
+}
+.btn-nav {
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    background-color: var(--primaryColor);
+    padding: 9px 20px 10px 21px;
+    color: var(--white);
+}
+.btn-nav:hover {
+    cursor: pointer;
+    background-color: var(--tertiaryColor);
 }

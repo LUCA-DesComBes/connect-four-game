@@ -1,15 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONNECT-FOUR-GAME</title>
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/normalize.css">
-    <link rel="stylesheet" href="./css/main.css">
-</head>
-<body>
-    
-    <script src="app.js"></script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>CONNECT-FOUR-GAME</title>
+		<link rel="stylesheet" href="./css/reset.css" />
+		<link rel="stylesheet" href="./css/normalize.css" />
+		<link rel="stylesheet" href="./css/main.css" />
+	</head>
+	<body>
+		<header>
+			<nav>
+				<button class="btn-nav f-s16 f-w700">MENU</button>
+                <img src="./asset/logo.svg" alt="logo">
+                <button class="btn-nav f-s16 f-w700">RESTART</button>
+			</nav>
+		</header>
+        <main>
+           <article class="art-main">
+            <div class="div-player-one">
+                <img src="./asset/player-one.svg" alt="player-one">
+                <p class="player-para">PLAYER 1</p>
+                <span class="player-score">12</span>
+            </div>
+            <div class="div-player-two">
+                <img src="./asset/player-two.svg" alt="player-two">
+                <p class="player-para">PLAYER 2</p>
+                <span class="player-score">23</span>
+            </div>
+           </article>
+        </main>
+		<script src="app.js"></script>
+	</body>
 </html>
