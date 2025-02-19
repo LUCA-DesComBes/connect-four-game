@@ -9,86 +9,152 @@
 		<link rel="stylesheet" href="./css/main.css" />
 	</head>
 	<body>
-		<header>
-			<nav>
-				<button class="btn-nav f-s16 f-w700">MENU</button>
-                <img src="./asset/logo.svg" alt="logo">
-                <button class="btn-nav f-s16 f-w700">RESTART</button>
-			</nav>
-		</header>
-        <main>
-           <article class="art-main">
-            <div class="div-player">
-                <img src="./asset/player-one.svg" alt="player-one" class="img-player">
-                <p class="f-w700 f-s20">PLAYER 1</p>
-                <span class="f-w700 f-s56">12</span>
-            </div>
-            <section class="layer-sect">
-                <img src="./asset/white-layer.svg" alt="white-layer" class="img-layer">
-                <div class="container">
-                    <button class="btn-grid"><img src="./asset/pion-red.svg" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                    <button class="btn-grid"><img src="" alt=""></button>
-                </div>
-                <img src="./asset/black-layer.svg" alt="black-layer" class="img-layer">
-            </section>
-            <div class="div-player">
-                <img src="./asset/player-two.svg" alt="player-two" class="img-player">
-                <p class="f-w700 f-s20">PLAYER 2</p>
-                <span class="f-w700 f-s56">23</span>
-            </div>
-           </article>
-           <div class="chrono-div">
-            <!-- <div class="timer-div">
-                <p class="player-turn-para f-s16 f-w700">PLAYER 1’S TURN</p>
-                <span class="timer-para f-s56 f-w700">3s</span>
-            </div> -->
-            <div class="win-div">
-                <p class="player-win-para f-s16 f-w700">PLAYER 1</p>
-                <h2 class="win-heading f-s56 f-w700">WINS</h2>
-                <button class="play-again-win f-s16 f-w700">PLAY AGAIN</button>
-            </div>
-           </div>
-        </main>
+		<div class="rule-game">
+			<article class="art-rule">
+				<h1 class="h-rule f-s56 f-w700">RULES</h1>
+				<section class="sect-obj">
+					<h2 class="h2-rule f-s20 f-w700">OBJECTIVE</h2>
+					<p class="para-obj f-s16 f-w500 opa66">
+						Be the first player to connect 4 of the same colored discs in a row
+						(either vertically, horizontally, or diagonally).
+					</p>
+				</section>
+				<section class="sect-obj">
+					<h2 class="h2-rule f-s20 f-w700">HOW TO PLAY</h2>
+					<ul class="how-ul">
+						<li class="li-how f-s16 f-w500">
+							<span class="number-span f-s16 f-w700">1</span>Red goes first in
+							the first game.
+						</li>
+						<li class="li-how f-s16 f-w500">
+							<span class="number-span f-s16 f-w700">2</span>Players must
+							alternate turns, and only one disc can be dropped in each turn.
+						</li>
+						<li class="li-how f-s16 f-w500">
+							<span class="number-span f-s16 f-w700">3</span>The game ends when
+							there is a 4-in-a-row or a stalemate.
+						</li>
+						<li class="li-how f-s16 f-w500">
+							<span class="number-span f-s16 f-w700">4</span>The starter of the
+							previous game goes second on the next game.
+						</li>
+					</ul>
+				</section>
+				<img src="./asset/icon-check.svg" alt="icon-check" />
+			</article>
+		</div>
+		<div class="play-game">
+			<header>
+				<nav>
+					<button class="btn-nav f-s16 f-w700">MENU</button>
+					<img src="./asset/logo.svg" alt="logo" />
+					<button class="btn-nav f-s16 f-w700">RESTART</button>
+				</nav>
+			</header>
+			<main>
+				<article class="art-main">
+					<div class="div-player">
+						<img
+							src="./asset/player-one.svg"
+							alt="player-one"
+							class="img-player"
+						/>
+						<p class="f-w700 f-s20">PLAYER 1</p>
+						<span class="f-w700 f-s56">12</span>
+					</div>
+					<section class="layer-sect">
+						<img
+							src="./asset/white-layer.svg"
+							alt="white-layer"
+							class="img-layer"
+						/>
+						<div class="container">
+							<div class="grid-col">
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="./asset/pion-red.svg" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+							</div>
+							<div class="grid-col">
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+							</div>
+							<div class="grid-col">
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+							</div>
+							<div class="grid-col">
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+							</div>
+							<div class="grid-col">
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+							</div>
+							<div class="grid-col">
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+							</div>
+							<div class="grid-col">
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+								<button class="btn-grid"><img src="" alt="" /></button>
+							</div>
+						</div>
+						<img
+							src="./asset/black-layer.svg"
+							alt="black-layer"
+							class="img-layer"
+						/>
+					</section>
+					<div class="div-player">
+						<img
+							src="./asset/player-two.svg"
+							alt="player-two"
+							class="img-player"
+						/>
+						<p class="f-w700 f-s20">PLAYER 2</p>
+						<span class="f-w700 f-s56">23</span>
+					</div>
+				</article>
+				<div class="chrono-div">
+					<div class="timer-div">
+						<p class="player-turn-para f-s16 f-w700">PLAYER 1’S TURN</p>
+						<span class="timer-para f-s56 f-w700">3s</span>
+					</div>
+					<!-- <div class="win-div">
+                    <p class="player-win-para f-s16 f-w700">PLAYER 1</p>
+                    <h2 class="win-heading f-s56 f-w700">WINS</h2>
+                    <button class="play-again-win f-s16 f-w700">PLAY AGAIN</button>
+                </div> -->
+				</div>
+			</main>
+		</div>
 		<script src="app.js"></script>
 	</body>
 </html>

@@ -34,6 +34,9 @@ nav {
 	width: 33%;
 	margin-bottom: 51px;
 }
+.play-game {
+	display: block;
+}
 .f-s16 {
 	font-size: 16px;
 }
@@ -45,6 +48,12 @@ nav {
 }
 .f-w700 {
 	font-weight: 700;
+}
+.f-w500 {
+	font-weight: 500;
+}
+.opa66 {
+	opacity: 66%;
 }
 .btn-nav {
 	border: none;
@@ -99,8 +108,7 @@ img[alt="white-layer"] {
 img[alt="black-layer"] {
 	z-index: 0;
 }
-.img-layer,
-.img-layers {
+.img-layer {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -110,7 +118,7 @@ img[alt="black-layer"] {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
 	gap: 24px;
-	padding: 20px;
+	padding: 20px 20px 20px 20px;
 }
 .btn-grid {
     display: flex;
@@ -124,6 +132,11 @@ img[alt="black-layer"] {
 	border: none;
 	cursor: pointer;
 }
+.grid-col {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
 .chrono-div {
 	display: flex;
 	align-items: center;
@@ -136,7 +149,7 @@ img[alt="black-layer"] {
 	flex-direction: column;
 	background-color: var(--tertiaryColor);
 	border: 3px solid var(--black);
-	z-index: 10;
+	z-index: 7;
 	border-radius: 20px;
 	padding: 21px 25px 12px 25px;
 	margin-bottom: 50px;
@@ -176,4 +189,65 @@ img[alt="black-layer"] {
 	border-radius: 20px;
 	background-color: var(--primaryColor);
     padding: 9px 0 10px 0;
+}
+
+/* Rule-Sect */
+.rule-game {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+.art-rule {
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--white);
+	border: 3px solid var(--black);
+	padding: 30px 20px 54px 34px;
+	border-radius: 40px;
+	width: 29%;
+	box-shadow: 0px 10px 0px 0px var(--black);
+}
+.sect-obj {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+.h-rule {
+	text-align: center;
+}
+.h2-rule {
+	color: var(--secondaryColor);
+}
+.para-obj {
+	margin-bottom: 29px;
+}
+.how-ul {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 0;
+	list-style: none;
+}
+.li-how {
+	display: flex;
+	flex-direction: row;
+	gap: 17px;
+	color: #565656;
+}
+.number-span {
+	opacity: 100%;
+	color: var(--black);
+}
+img[alt="icon-check"] {
+	position: absolute;
+	bottom: -7%;
 }
