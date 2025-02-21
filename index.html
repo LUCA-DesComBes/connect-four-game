@@ -9,7 +9,25 @@
 		<link rel="stylesheet" href="./css/main.css" />
 	</head>
 	<body>
-		<div class="rule-game">
+		<div class="main-menu">
+			<article class="menu-art">
+				<img src="./asset/logo.svg" alt="logo-menu">
+				<div class="btn-menu-div">
+					<button class="btn-menu-single f-s24 f-w700">PLAYER VS PLAYER<img src="./asset/player-vs-player.svg" alt="player-vs-player"></button>
+					<button class="btn-menu-rule f-s24 f-w700" id="btn-rules">GAME RULES</button>
+				</div>
+			</article>
+		</div>
+		<div class="div-opa"></div>
+		<dialog class="pause-dialog" id="pause-dialog">
+			<h1 class="h1-pause f-s56 f-w700">PAUSE</h1>
+			<div class="btn-pause-div">
+				<button class="btn-pause f-s24 f-w700" id="continue">CONTINUE GAME</button>
+				<button class="btn-pause f-s24 f-w700">RESTART</button>
+				<button class="btn-quitgame f-s24 f-w700">QUIT GAME</button>
+			</div>
+		</dialog>
+		<!-- <div class="rule-game">
 			<article class="art-rule">
 				<h1 class="h-rule f-s56 f-w700">RULES</h1>
 				<section class="sect-obj">
@@ -42,11 +60,11 @@
 				</section>
 				<img src="./asset/icon-check.svg" alt="icon-check" />
 			</article>
-		</div>
+		</div> -->
 		<div class="play-game">
 			<header>
 				<nav>
-					<button class="btn-nav f-s16 f-w700">MENU</button>
+					<button class="btn-nav f-s16 f-w700" id="menu">MENU</button>
 					<img src="./asset/logo.svg" alt="logo" />
 					<button class="btn-nav f-s16 f-w700">RESTART</button>
 				</nav>
