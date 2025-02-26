@@ -13,11 +13,17 @@ const btnPause = document.getElementById("btn-pause");
 const cursor = document.getElementById("cursor");
 const timerDiv = document.querySelector(".timer-div");
 const playerTurnPara = document.querySelector(".player-turn-para");
+const columns = document.querySelectorAll(".grid-col");
+const footerWins = document.querySelector(".footer-wins");
+const scoreOne = document.getElementById("scoreOne");
+const scoreTwo = document.getElementById("scoreTwo");
+const winDiv = document.querySelector(".win-div");
+const playerWinPara = document.querySelector(".player-win-para");
 
 let y = 0;
 let chronomètre;
 let timer;
-let counter = 0;
+let currentPlayer = 0;
 
 function resetTimer() {
 	clearInterval(timer); // Arrêtez l'ancien intervalle
@@ -31,7 +37,7 @@ function resetTimer() {
 			timerPara.textContent = `${chronomètre}s`;
 		} else {
 			resetTimer(); // Réinitialise le chronomètre lorsqu'il atteint zéro
-			if (counter % 2 === 0) {
+			if (currentPlayer % 2 === 0) {
 				cursor.src = "./asset/cursor-yellow.svg";
 				timerDiv.style.backgroundColor = "#ffce67";
 				timerPara.style.color = "#000";
@@ -44,7 +50,7 @@ function resetTimer() {
 				playerTurnPara.style.color = "#fff";
 				playerTurnPara.textContent = "PLAYER 1’S TURN";
 			}
-			counter++;
+			currentPlayer++;
 		}
 	}, 1000);
 }
@@ -166,7 +172,6 @@ function showMenu() {
 
 let scorePlayerOne = 0;
 let scorePlayerTwo = 0;
-let currentPlayer = 0;
 let colonneSelec = null;
 
 const grille = [
@@ -261,7 +266,7 @@ function checkWinner(grille) {
 	// verifie les colonnes
 	for (let i = 0; i < grille.length; i++) {
 		for (let j = 0; j < grille[i].length; j++) {
-			if (i <= grille[i].length - 4) {
+			if (i <= grille.length - 4 && j < grille[i].length) {
 				if (
 					grille[i][j] !== "" &&
 					grille[i][j] == "X" &&
@@ -269,7 +274,7 @@ function checkWinner(grille) {
 					grille[i + 2][j] == "X" &&
 					grille[i + 3][j] == "X"
 				) {
-					return "X";
+					return "X";			
 				} else if (
 					grille[i][j] !== "" &&
 					grille[i][j] == "O" &&
@@ -306,57 +311,6 @@ function checkWinner(grille) {
 			}
 		}
 	}
-	function checkWinner(grille) {
-		// verifie les lignes
-		for (let i = 0; i < grille.length; i++) {
-			for (let j = 0; j < grille[i].length; j++) {
-				if (j <= grille[i].length - 4) {
-					if (
-						grille[i][j] !== "" &&
-						grille[i][j] == "X" &&
-						grille[i][j + 1] == "X" &&
-						grille[i][j + 2] == "X" &&
-						grille[i][j + 3] == "X"
-					) {
-						return "X";
-					} else if (
-						grille[i][j] !== "" &&
-						grille[i][j] == "O" &&
-						grille[i][j + 1] == "O" &&
-						grille[i][j + 2] == "O" &&
-						grille[i][j + 3] == "O"
-					) {
-						return "O";
-					}
-				}
-			}
-		}
-		// verifie les colonnes
-		for (let i = 0; i < grille.length; i++) {
-			for (let j = 0; j < grille[i].length; j++) {
-				if (i <= grille[i].length - 4) {
-					if (
-						grille[i][j] !== "" &&
-						grille[i][j] == "X" &&
-						grille[i + 1][j] == "X" &&
-						grille[i + 2][j] == "X" &&
-						grille[i + 3][j] == "X"
-					) {
-						return "X";
-					} else if (
-						grille[i][j] !== "" &&
-						grille[i][j] == "O" &&
-						grille[i + 1][j] == "O" &&
-						grille[i + 2][j] == "O" &&
-						grille[i + 3][j] == "O"
-					) {
-						return "O";
-					}
-				}
-			}
-		}
-	}
-	// Vérifie la diagonale montante (↗)
 	for (let i = 3; i < grille.length; i++) {
 		// Commence à partir de i = 3 pour éviter i - 1, i - 2, i - 3 négatifs
 		for (let j = 0; j < grille[i].length - 3; j++) {
@@ -380,36 +334,102 @@ function checkWinner(grille) {
 			}
 		}
 	}
-
-	// Vérifie la diagonale descendante (↘)
-	for (let i = 0; i < grille.length - 3; i++) {
-		// Vérifie que i + 3 ne dépasse pas la limite en bas
-		for (let j = 0; j < grille[i].length - 3; j++) {
-			// Vérifie que j + 3 ne dépasse pas la limite à droite
-			if (grille[i][j] !== "") {
-				if (
-					grille[i][j] === "X" &&
-					grille[i + 1][j + 1] === "X" &&
-					grille[i + 2][j + 2] === "X" &&
-					grille[i + 3][j + 3] === "X"
-				) {
-					return "X";
-				} else if (
-					grille[i][j] === "O" &&
-					grille[i + 1][j + 1] === "O" &&
-					grille[i + 2][j + 2] === "O" &&
-					grille[i + 3][j + 3] === "O"
-				) {
-					return "O";
-				}
-			}
-		}
-	}
-
 	return "null";
 }
 
 let resultat = "";
+
+let gameOver = false;	
+
+function findPawnPosition(colonne, grille, event) {
+	const container = document.querySelector(".container");
+	const parentWidth = container.offsetWidth;
+	const cursorWidth = 32;
+	const parentWidthInPercent = parentWidth / 100;
+
+	if (gameOver) return;
+
+	if (event && event.key === "ArrowLeft") {
+		y -= 15.5;
+		if (y < 0) {
+			y = 0;
+		}
+		event.preventDefault();
+	}
+	
+	if (event && event.key === "ArrowRight") {
+		y += 15.5;
+		if (y > 100 - cursorWidth / parentWidthInPercent) {
+			y = 100 - cursorWidth / parentWidthInPercent;
+		}
+		event.preventDefault();
+	}
+	
+	if (event && event.code === "Space") {
+		const colIndex = Math.floor((y / 100) * columns.length);
+		colonne = columns[colIndex].querySelectorAll(".pions-img");
+	
+
+		for (let i = colonne.length - 1; i >= 0; i--) {
+			if (colonne[i].classList.contains("vide") || grille[i][colIndex] === "") {
+				if (currentPlayer % 2 === 0) {
+					colonne[i].src = "./asset/pion-red.svg";
+					colonne[i].classList.remove("vide");
+					cursor.src = "./asset/cursor-yellow.svg";
+					timerDiv.style.backgroundColor = "#ffce67";
+					timerPara.style.color = "#000";
+					playerTurnPara.style.color = "#000";
+					playerTurnPara.textContent = "PLAYER 1’S TURN";
+					grille[i][colIndex] = "X";
+					resetTimer();
+				} else {
+					colonne[i].src = "./asset/pion-yellow.svg";
+					colonne[i].classList.remove("vide");
+					cursor.src = "./asset/cursor.svg";
+					timerDiv.style.backgroundColor = "#fd6687";
+					timerPara.style.color = "#fff";
+					playerTurnPara.style.color = "#fff";
+					playerTurnPara.textContent = "PLAYER 2’S TURN";
+					grille[i][colIndex] = "O";
+					resetTimer();
+				}
+				currentPlayer++;
+				resultat = checkWinner(grille);
+				if (resultat !== "null") {
+					gameOver = true;  // Le jeu est terminé
+					if (resultat === "X") {
+						footerWins.style.backgroundColor = "#fd6687";
+						scorePlayerOne++;
+						timerDiv.style.display = "none";
+						winDiv.style.display = "flex";
+						playerWinPara.textContent = "PLAYER 1"
+						scoreOne.textContent = scorePlayerOne;
+					} else if (resultat === "O") {
+						footerWins.style.backgroundColor = "#ffce67";
+						scorePlayerTwo++;
+						timerDiv.style.display = "none";
+						winDiv.style.display = "flex";
+						playerWinPara.textContent = "PLAYER 2"
+						scoreTwo.textContent = scorePlayerTwo;
+					}
+					cursor.style.display = "none";
+				}
+				console.log(grille);
+				break;
+			}
+		}
+		event.preventDefault();
+	}
+	cursor.style.left = y + "%"; 
+}
+
+
+
+let resultats = 0;
+
+resultats = findPawnPosition(0, grille) // retourne 4
+resultats = findPawnPosition(2, grille) // retourne 3
+resultats = findPawnPosition(5, grille) // retourne 5
 
 resultat = checkWinner(grilleAvecGagnant1); // retourne "X"
 console.log(resultat);
@@ -428,66 +448,6 @@ playerVsPlayer.addEventListener("click", startGame);
 btnPause.addEventListener("click", startGame);
 btnQuitGame.addEventListener("click", showMenu);
 
-const columns = document.querySelectorAll(".grid-col");
-
-document.body.addEventListener("keydown", (e) => {
-	const container = document.querySelector(".container");
-	const parentWidth = container.offsetWidth;
-	const cursorWidth = 32;
-	const parentWidthInPercent = parentWidth / 100;
-	let grille = [
-		["", "", "", "", "", "", ""],
-		["", "", "", "", "", "", ""],
-		["", "", "", "", "", "", ""],
-		["", "", "", "", "", "", ""],
-		["", "", "", "", "", "", ""],
-		["", "", "", "", "", "", ""],
-	];
-	let pipette;
-
-	if (e.key === "ArrowLeft") {
-		y -= 15.5;
-		if (y < 0) {
-			y = 0;
-		}
-	}
-
-	if (e.key === "ArrowRight") {
-		y += 15.5;
-		if (y > 100 - cursorWidth / parentWidthInPercent) {
-			y = 100 - cursorWidth / parentWidthInPercent;
-		}
-	}
-
-	if (e.code === "Space") {
-		const colIndex = Math.floor((y / 100) * columns.length);
-		const column = columns[colIndex].querySelectorAll(".pions-img");
-
-		for (let i = column.length - 1; i >= 0; i--) {
-			if (column[i].classList.contains("vide")) {
-				if (counter % 2 === 0) {
-					column[i].src = "./asset/pion-red.svg";
-					column[i].classList.remove("vide");
-					cursor.src = "./asset/cursor-yellow.svg";
-					timerDiv.style.backgroundColor = "#ffce67";
-					timerPara.style.color = "#000";
-					playerTurnPara.style.color = "#000";
-					playerTurnPara.textContent = "PLAYER 1’S TURN";
-					resetTimer();
-				} else {
-					column[i].src = "./asset/pion-yellow.svg";
-					column[i].classList.remove("vide");
-					cursor.src = "./asset/cursor.svg";
-					timerDiv.style.backgroundColor = "#fd6687";
-					timerPara.style.color = "#fff";
-					playerTurnPara.style.color = "#fff";
-					playerTurnPara.textContent = "PLAYER 2’S TURN";
-					resetTimer();
-				}
-				counter++;
-				break;
-			}
-		}
-	}
-	cursor.style.left = y + "%";
+document.addEventListener("keydown", function(e) {
+    findPawnPosition(null, grille, e);
 });

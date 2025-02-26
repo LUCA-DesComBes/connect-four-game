@@ -170,7 +170,7 @@ img[alt="black-layer"] {
     background-color: var(--tertiaryColor);
 }
 .win-div {
-    display: flex;
+    display: none;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
@@ -372,7 +372,7 @@ img[alt="logo-menu"] {
 .footer-wins {
 	position: absolute;
 	top: 95%;
-	height: 25%;
+	height: 30%;
 	width: 100%;
 	z-index: -5;
 	border-radius: 60px 60px 0 0;
