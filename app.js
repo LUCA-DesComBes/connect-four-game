@@ -496,7 +496,7 @@ document.addEventListener("keydown", (event) => {
 					timerDiv.style.backgroundColor = "#ffce67";
 					timerPara.style.color = "#000";
 					playerTurnPara.style.color = "#000";
-					playerTurnPara.textContent = "PLAYER 1’S TURN";
+					playerTurnPara.textContent = "PLAYER 2’S TURN";
 					grille[i][colIndex] = "X";
 					resetTimer();
 				} else {
@@ -506,7 +506,7 @@ document.addEventListener("keydown", (event) => {
 					timerDiv.style.backgroundColor = "#fd6687";
 					timerPara.style.color = "#fff";
 					playerTurnPara.style.color = "#fff";
-					playerTurnPara.textContent = "PLAYER 2’S TURN";
+					playerTurnPara.textContent = "PLAYER 1’S TURN";
 					grille[i][colIndex] = "O";
 					resetTimer();
 				}
