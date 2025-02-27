@@ -18,6 +18,7 @@ const footerWins = document.querySelector(".footer-wins");
 const scoreOne = document.getElementById("scoreOne");
 const scoreTwo = document.getElementById("scoreTwo");
 const winDiv = document.querySelector(".win-div");
+const chronoDiv = document.querySelector(".chrono-div");
 const playerWinPara = document.querySelector(".player-win-para");
 
 let y = 0;
@@ -168,6 +169,7 @@ function showMenu() {
 	mainMenuArt.style.display = "flex";
 	divOpa.style.display = "none";
 	pauseDialog.style.display = "none";
+	footerWins.style.display = "none";
 }
 
 let scorePlayerOne = 0;
@@ -179,8 +181,8 @@ const grille = [
 	["", "", "", "", "", "", ""],
 	["", "", "", "", "", "", ""],
 	["", "", "", "", "", "", ""],
-	["", "", "", "", "", "", ""],
-	["", "", "", "", "", "", ""],
+	["", "", "X", "", "", "", ""],
+	["X", "X", "X", "", "", "", ""],
 ];
 
 const grilleAvecGagnant1 = [
@@ -237,6 +239,7 @@ function startGame() {
 	mainMenuArt.style.display = "none";
 	divOpa.style.display = "none";
 	pauseDialog.style.display = "none";
+	footerWins.style.display = "block";
 }
 
 function checkWinner(grille) {
@@ -274,7 +277,7 @@ function checkWinner(grille) {
 					grille[i + 2][j] == "X" &&
 					grille[i + 3][j] == "X"
 				) {
-					return "X";			
+					return "X";
 				} else if (
 					grille[i][j] !== "" &&
 					grille[i][j] == "O" &&
@@ -339,97 +342,81 @@ function checkWinner(grille) {
 
 let resultat = "";
 
-let gameOver = false;	
+let gameOver = false;
 
-function findPawnPosition(colonne, grille, event) {
-	const container = document.querySelector(".container");
-	const parentWidth = container.offsetWidth;
-	const cursorWidth = 32;
-	const parentWidthInPercent = parentWidth / 100;
+function createVictoryBanner(nomDuJoueur) {
+	const div = createContainer("win-div", "div");
+	const p = createText(
+		"player-win-para",
+		"f-s16",
+		"f-w700",
+		`PLAYER ${nomDuJoueur}`,
+		"p"
+	);
+	const h2 = createText("win-heading", "f-s56", "f-w700", "WINS", "h2");
+	const button = createText(
+		"play-again-win",
+		"f-s16",
+		"f-w700",
+		"PLAY AGAIN",
+		"button"
+	);
 
-	if (gameOver) return;
+	chronoDiv.appendChild(div);
+	div.append(p, h2, button);
 
-	if (event && event.key === "ArrowLeft") {
-		y -= 15.5;
-		if (y < 0) {
-			y = 0;
+	console.log(button);
+	button.addEventListener("click", () => {
+		console.log("bouton cliqué!");
+		clearInterval(timer);
+		chronomètre = 15;
+		timerDiv.style.display = "flex";
+		div.style.display = "none";
+		
+		for (const row of grille) {
+			row.fill("");
 		}
-		event.preventDefault();
-	}
-	
-	if (event && event.key === "ArrowRight") {
-		y += 15.5;
-		if (y > 100 - cursorWidth / parentWidthInPercent) {
-			y = 100 - cursorWidth / parentWidthInPercent;
+		
+		cursor.style.display = "block";
+		const pionsImgs = document.querySelectorAll(".pions-img");
+		for (const pion of pionsImgs) {
+			pion.src = "";
+			pion.classList.add("vide");
 		}
-		event.preventDefault();
-	}
 	
-	if (event && event.code === "Space") {
-		const colIndex = Math.floor((y / 100) * columns.length);
-		colonne = columns[colIndex].querySelectorAll(".pions-img");
-	
-
-		for (let i = colonne.length - 1; i >= 0; i--) {
-			if (colonne[i].classList.contains("vide") || grille[i][colIndex] === "") {
-				if (currentPlayer % 2 === 0) {
-					colonne[i].src = "./asset/pion-red.svg";
-					colonne[i].classList.remove("vide");
-					cursor.src = "./asset/cursor-yellow.svg";
-					timerDiv.style.backgroundColor = "#ffce67";
-					timerPara.style.color = "#000";
-					playerTurnPara.style.color = "#000";
-					playerTurnPara.textContent = "PLAYER 1’S TURN";
-					grille[i][colIndex] = "X";
-					resetTimer();
-				} else {
-					colonne[i].src = "./asset/pion-yellow.svg";
-					colonne[i].classList.remove("vide");
-					cursor.src = "./asset/cursor.svg";
-					timerDiv.style.backgroundColor = "#fd6687";
-					timerPara.style.color = "#fff";
-					playerTurnPara.style.color = "#fff";
-					playerTurnPara.textContent = "PLAYER 2’S TURN";
-					grille[i][colIndex] = "O";
-					resetTimer();
-				}
-				currentPlayer++;
-				resultat = checkWinner(grille);
-				if (resultat !== "null") {
-					gameOver = true;  // Le jeu est terminé
-					if (resultat === "X") {
-						footerWins.style.backgroundColor = "#fd6687";
-						scorePlayerOne++;
-						timerDiv.style.display = "none";
-						winDiv.style.display = "flex";
-						playerWinPara.textContent = "PLAYER 1"
-						scoreOne.textContent = scorePlayerOne;
-					} else if (resultat === "O") {
-						footerWins.style.backgroundColor = "#ffce67";
-						scorePlayerTwo++;
-						timerDiv.style.display = "none";
-						winDiv.style.display = "flex";
-						playerWinPara.textContent = "PLAYER 2"
-						scoreTwo.textContent = scorePlayerTwo;
-					}
-					cursor.style.display = "none";
-				}
-				console.log(grille);
-				break;
-			}
+		y = 0;
+		cursor.style.left = y + "%";
+		cursor.style.display = "block";
+		footerWins.style.backgroundColor = "#5c2dd5" 
+		gameOver = false;
+		let lastWinner = null;
+		if (lastWinner === 1) {
+			currentPlayer = 1;
+		} else if (lastWinner === 2) {
+			currentPlayer = 0;
 		}
-		event.preventDefault();
-	}
-	cursor.style.left = y + "%"; 
+		resetTimer();
+	});
+	
 }
 
-
+function findPawnPosition(colonne, grille) {
+	for (let ligne = grille.length - 1; ligne >= 0; ligne--) {
+	  if (grille[ligne][colonne] === "") {
+		return ligne;
+	  }
+	}
+	return -1;
+  }
 
 let resultats = 0;
 
-resultats = findPawnPosition(0, grille) // retourne 4
-resultats = findPawnPosition(2, grille) // retourne 3
-resultats = findPawnPosition(5, grille) // retourne 5
+resultats = findPawnPosition(0, grille); // retourne 4
+console.log(resultats);
+resultats = findPawnPosition(2, grille); // retourne 3
+console.log(resultats);
+resultats = findPawnPosition(5, grille); // retourne 5
+console.log(resultats);
 
 resultat = checkWinner(grilleAvecGagnant1); // retourne "X"
 console.log(resultat);
@@ -448,6 +435,82 @@ playerVsPlayer.addEventListener("click", startGame);
 btnPause.addEventListener("click", startGame);
 btnQuitGame.addEventListener("click", showMenu);
 
-document.addEventListener("keydown", function(e) {
-    findPawnPosition(null, grille, e);
+
+document.addEventListener("keydown", (event) => {
+	const container = document.querySelector(".container");
+	const parentWidth = container.offsetWidth;
+	const cursorWidth = 32;
+	const parentWidthInPercent = parentWidth / 100;
+
+	if (gameOver) return;
+
+	if (event && event.key === "ArrowLeft") {
+		y -= 15.5;
+		if (y < 0) {
+			y = 0;
+		}
+		event.preventDefault();
+	}
+
+	if (event && event.key === "ArrowRight") {
+		y += 15.5;
+		if (y > 100 - cursorWidth / parentWidthInPercent) {
+			y = 100 - cursorWidth / parentWidthInPercent;
+		}
+		event.preventDefault();
+	}
+
+	if (event && event.code === "Space") {
+		const colIndex = Math.floor((y / 100) * columns.length);
+		let col = columns[colIndex].querySelectorAll(".pions-img");
+
+		for (let i = col.length - 1; i >= 0; i--) {
+			if (col[i].classList.contains("vide") || grille[i][colIndex] === "") {
+				if (currentPlayer % 2 === 0) {
+					col[i].src = "./asset/pion-red.svg";
+					col[i].classList.remove("vide");
+					cursor.src = "./asset/cursor-yellow.svg";
+					timerDiv.style.backgroundColor = "#ffce67";
+					timerPara.style.color = "#000";
+					playerTurnPara.style.color = "#000";
+					playerTurnPara.textContent = "PLAYER 1’S TURN";
+					grille[i][colIndex] = "X";
+					resetTimer();
+				} else {
+					col[i].src = "./asset/pion-yellow.svg";
+					col[i].classList.remove("vide");
+					cursor.src = "./asset/cursor.svg";
+					timerDiv.style.backgroundColor = "#fd6687";
+					timerPara.style.color = "#fff";
+					playerTurnPara.style.color = "#fff";
+					playerTurnPara.textContent = "PLAYER 2’S TURN";
+					grille[i][colIndex] = "O";
+					resetTimer();
+				}
+				currentPlayer++;
+				resultat = checkWinner(grille);
+				if (resultat !== "null") {
+					gameOver = true; // Le jeu est terminé
+					if (resultat === "X") {
+						footerWins.style.backgroundColor = "#fd6687";
+						scorePlayerOne++;
+						timerDiv.style.display = "none";
+						scoreOne.textContent = scorePlayerOne;
+						createVictoryBanner(1);
+					} else if (resultat === "O") {
+						footerWins.style.backgroundColor = "#ffce67";
+						timerDiv.style.display = "none";
+						scorePlayerTwo++;
+						scoreTwo.textContent = scorePlayerTwo;
+						createVictoryBanner(2);
+					}
+					cursor.style.display = "none";
+				}
+				console.log(grille);
+				break;
+			}
+		}
+		event.preventDefault();
+	}
+	cursor.style.left = y + "%";
 });
