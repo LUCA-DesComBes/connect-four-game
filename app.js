@@ -1,3 +1,4 @@
+// Les Constantes 
 const btnRules = document.getElementById("btn-rules");
 const mainMenu = document.querySelector(".main-menu");
 const mainMenuArt = document.querySelector(".menu-art");
@@ -20,24 +21,85 @@ const scoreTwo = document.getElementById("scoreTwo");
 const winDiv = document.querySelector(".win-div");
 const chronoDiv = document.querySelector(".chrono-div");
 const playerWinPara = document.querySelector(".player-win-para");
+const restartBtn = document.getElementById("restart");
 
+const grille = [
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+];
+
+const grilleAvecGagnant1 = [
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["X", "X", "X", "X", "", "", ""],
+];
+
+const grilleAvecGagnant2 = [
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["X", "", "", "", "", "", ""],
+	["X", "", "", "", "", "", ""],
+	["X", "", "", "", "", "", ""],
+	["X", "", "", "", "", "", ""],
+];
+
+const grilleAvecGagnant3 = [
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["", "", "", "X", "", "", ""],
+	["", "", "X", "", "", "", ""],
+	["", "X", "", "", "", "", ""],
+	["X", "", "", "", "", "", ""],
+];
+
+const grilleAvecGagnant4 = [
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["", "", "", "X", "", "", ""],
+	["", "", "X", "O", "", "", ""],
+	["", "O", "O", "O", "", "", ""],
+	["X", "O", "O", "O", "O", "", ""],
+];
+
+const grilleSansGagnant = [
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["", "", "", "X", "", "", ""],
+	["", "", "X", "O", "", "", ""],
+	["", "O", "O", "O", "", "", ""],
+	["X", "O", "O", "X", "O", "", ""],
+];
+
+// Les Variables
 let y = 0;
 let chronomètre;
 let timer;
 let currentPlayer = 0;
+let scorePlayerOne = 0;
+let scorePlayerTwo = 0;
+let colonneSelec = null;
+let resultat = "";
+let gameOver = false;
+let resultats = 0;
 
+// Les Fonctions
 function resetTimer() {
-	clearInterval(timer); // Arrêtez l'ancien intervalle
+	clearInterval(timer);
 	chronomètre = 15;
 	timerPara.textContent = `${chronomètre}s`;
-
-	// Redémarrez le chronomètre
 	timer = setInterval(() => {
 		if (chronomètre > 0) {
 			chronomètre--;
 			timerPara.textContent = `${chronomètre}s`;
 		} else {
-			resetTimer(); // Réinitialise le chronomètre lorsqu'il atteint zéro
+			resetTimer();
 			if (currentPlayer % 2 === 0) {
 				cursor.src = "./asset/cursor-yellow.svg";
 				timerDiv.style.backgroundColor = "#ffce67";
@@ -55,8 +117,6 @@ function resetTimer() {
 		}
 	}, 1000);
 }
-
-function truc() {}
 
 function createContainer(Class, type) {
 	const element = document.createElement(type);
@@ -86,6 +146,7 @@ function createImg(Class, type, src, alt) {
 	element.alt = alt;
 	return element;
 }
+
 function showRules() {
 	mainMenu.style.display = "none";
 
@@ -172,68 +233,22 @@ function showMenu() {
 	footerWins.style.display = "none";
 }
 
-let scorePlayerOne = 0;
-let scorePlayerTwo = 0;
-let colonneSelec = null;
-
-const grille = [
-	["", "", "", "", "", "", ""],
-	["", "", "", "", "", "", ""],
-	["", "", "", "", "", "", ""],
-	["", "", "", "", "", "", ""],
-	["", "", "X", "", "", "", ""],
-	["X", "X", "X", "", "", "", ""],
-];
-
-const grilleAvecGagnant1 = [
-	["", "", "", "", "", "", ""],
-	["", "", "", "", "", "", ""],
-	["", "", "", "", "", "", ""],
-	["", "", "", "", "", "", ""],
-	["", "", "", "", "", "", ""],
-	["X", "X", "X", "X", "", "", ""],
-];
-
-const grilleAvecGagnant2 = [
-	["", "", "", "", "", "", ""],
-	["", "", "", "", "", "", ""],
-	["X", "", "", "", "", "", ""],
-	["X", "", "", "", "", "", ""],
-	["X", "", "", "", "", "", ""],
-	["X", "", "", "", "", "", ""],
-];
-
-const grilleAvecGagnant3 = [
-	["", "", "", "", "", "", ""],
-	["", "", "", "", "", "", ""],
-	["", "", "", "X", "", "", ""],
-	["", "", "X", "", "", "", ""],
-	["", "X", "", "", "", "", ""],
-	["X", "", "", "", "", "", ""],
-];
-
-const grilleAvecGagnant4 = [
-	["", "", "", "", "", "", ""],
-	["", "", "", "", "", "", ""],
-	["", "", "", "X", "", "", ""],
-	["", "", "X", "O", "", "", ""],
-	["", "O", "O", "O", "", "", ""],
-	["X", "O", "O", "O", "O", "", ""],
-];
-
-const grilleSansGagnant = [
-	["", "", "", "", "", "", ""],
-	["", "", "", "", "", "", ""],
-	["", "", "", "X", "", "", ""],
-	["", "", "X", "O", "", "", ""],
-	["", "O", "O", "O", "", "", ""],
-	["X", "O", "O", "X", "O", "", ""],
-];
 
 function startGame() {
 	chronomètre = 15;
 	resetTimer();
-
+	scorePlayerOne = 0;
+	scorePlayerTwo = 0;
+	scoreOne.textContent = scorePlayerOne;
+	scoreTwo.textContent = scorePlayerTwo;
+	for (const row of grille) {
+		row.fill("");
+	}
+	const pionsImgs = document.querySelectorAll(".pions-img");
+	for (const pion of pionsImgs) {
+		pion.src = "";
+		pion.classList.add("vide");
+	}
 	playGameDiv.style.display = "block";
 	mainMenu.style.display = "none";
 	mainMenuArt.style.display = "none";
@@ -339,11 +354,6 @@ function checkWinner(grille) {
 	}
 	return "null";
 }
-
-let resultat = "";
-
-let gameOver = false;
-
 function createVictoryBanner(nomDuJoueur) {
 	const div = createContainer("win-div", "div");
 	const p = createText(
@@ -372,22 +382,20 @@ function createVictoryBanner(nomDuJoueur) {
 		chronomètre = 15;
 		timerDiv.style.display = "flex";
 		div.style.display = "none";
-		
+
 		for (const row of grille) {
 			row.fill("");
 		}
-		
+
 		cursor.style.display = "block";
 		const pionsImgs = document.querySelectorAll(".pions-img");
 		for (const pion of pionsImgs) {
 			pion.src = "";
 			pion.classList.add("vide");
 		}
-	
 		y = 0;
 		cursor.style.left = y + "%";
-		cursor.style.display = "block";
-		footerWins.style.backgroundColor = "#5c2dd5" 
+		footerWins.style.backgroundColor = "#5c2dd5";
 		gameOver = false;
 		let lastWinner = null;
 		if (lastWinner === 1) {
@@ -397,19 +405,17 @@ function createVictoryBanner(nomDuJoueur) {
 		}
 		resetTimer();
 	});
-	
 }
 
 function findPawnPosition(colonne, grille) {
-	for (let ligne = grille.length - 1; ligne >= 0; ligne--) {
-	  if (grille[ligne][colonne] === "") {
-		return ligne;
-	  }
+	for (let i = grille.length - 1; i >= 0; i--) {
+		if (grille[i][colonne] === "") {
+			return i;
+		}
 	}
 	return -1;
-  }
+}
 
-let resultats = 0;
 
 resultats = findPawnPosition(0, grille); // retourne 4
 console.log(resultats);
@@ -417,6 +423,30 @@ resultats = findPawnPosition(2, grille); // retourne 3
 console.log(resultats);
 resultats = findPawnPosition(5, grille); // retourne 5
 console.log(resultats);
+
+function getVictoryPawns(line, col) {
+	const symbols = grilleAvecGagnant1[line][col];
+	let pion = [[line, col]];
+
+	for (let i = col - 1; i >= 0; i--) {
+		if (grilleAvecGagnant1[line][i] === symbols) {
+			pion.push([line, i]);
+		} else {
+			break;
+		}
+	}
+	for (let i = col + 1; i < 7; i++) {
+		if (grilleAvecGagnant1[line][i] === symbols) {
+			pion.push([line, i]);
+		} else {
+			break;
+		}
+	}
+	return pion.length === 4 ? pion : []; 
+}
+
+let result = getVictoryPawns(5, 3);
+console.log(result);
 
 resultat = checkWinner(grilleAvecGagnant1); // retourne "X"
 console.log(resultat);
@@ -428,13 +458,6 @@ resultat = checkWinner(grilleAvecGagnant4); // retourne "O"
 console.log(resultat);
 resultat = checkWinner(grilleSansGagnant); // retourne ""
 console.log(resultat);
-
-btnRules.addEventListener("click", showRules);
-menuBtn.addEventListener("click", showPause);
-playerVsPlayer.addEventListener("click", startGame);
-btnPause.addEventListener("click", startGame);
-btnQuitGame.addEventListener("click", showMenu);
-
 
 document.addEventListener("keydown", (event) => {
 	const container = document.querySelector(".container");
@@ -514,3 +537,11 @@ document.addEventListener("keydown", (event) => {
 	}
 	cursor.style.left = y + "%";
 });
+
+// Les écouteurs
+btnRules.addEventListener("click", showRules);
+menuBtn.addEventListener("click", showPause);
+playerVsPlayer.addEventListener("click", startGame);
+btnPause.addEventListener("click", startGame);
+restartBtn.addEventListener("click", startGame),
+btnQuitGame.addEventListener("click", showMenu);
